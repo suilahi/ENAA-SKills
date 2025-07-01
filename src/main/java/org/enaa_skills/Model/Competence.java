@@ -1,12 +1,14 @@
 package org.enaa_skills.Model;
 
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
+
 @Entity
 @Table(name = "competences")
 public class Competence {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,11 +16,12 @@ public class Competence {
     private String nom;
     private String description;
 
-    @OneToMany(mappedBy = "competence", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SousCompetence> sousCompetences;
+    @Enumerated(EnumType.STRING)
+    private StatutValidation statut;
 
     @OneToMany(mappedBy = "competence", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ValidationCompetence> validations;
+    @JsonManagedReference
+    private List<SousCompetence> sousCompetences;
 
     // Getters & Setters
 
@@ -46,19 +49,19 @@ public class Competence {
         this.description = description;
     }
 
+    public StatutValidation getStatut() {
+        return statut;
+    }
+
+    public void setStatut(StatutValidation statut) {
+        this.statut = statut;
+    }
+
     public List<SousCompetence> getSousCompetences() {
         return sousCompetences;
     }
 
     public void setSousCompetences(List<SousCompetence> sousCompetences) {
         this.sousCompetences = sousCompetences;
-    }
-
-    public List<ValidationCompetence> getValidations() {
-        return validations;
-    }
-
-    public void setValidations(List<ValidationCompetence> validations) {
-        this.validations = validations;
     }
 }

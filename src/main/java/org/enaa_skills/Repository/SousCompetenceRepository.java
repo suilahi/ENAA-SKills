@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface SousCompetenceRepository  extends JpaRepository<SousCompetence, Long> {
     List<SousCompetence> findByCompetenceId(Long competenceId);
-
 }
 

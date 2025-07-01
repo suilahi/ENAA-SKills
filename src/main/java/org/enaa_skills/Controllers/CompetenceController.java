@@ -36,7 +36,7 @@ public class CompetenceController {
     @PutMapping("/{id}")
     public ResponseEntity<Competence> update(@PathVariable Long id, @RequestBody Competence updated) {
         Optional<Competence> existing = service.getById(id);
-        if (!existing.isPresent()) {
+        if (existing.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         updated.setId(id);
@@ -47,7 +47,7 @@ public class CompetenceController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         Optional<Competence> existing = service.getById(id);
-        if (!existing.isPresent()) {
+        if (existing.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         service.delete(id);
