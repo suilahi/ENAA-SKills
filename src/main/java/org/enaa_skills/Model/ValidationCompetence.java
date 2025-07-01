@@ -1,10 +1,9 @@
 package org.enaa_skills.Model;
 
 import jakarta.persistence.*;
-
 @Entity
-@Table(name = "validation_sous_competences")
-public class ValidationSousCompetence {
+@Table(name = "validation_competences")
+public class ValidationCompetence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,9 +12,8 @@ public class ValidationSousCompetence {
     private StatutValidation statut;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sous_competence_id")
-    private SousCompetence sousCompetence;
-
+    @JoinColumn(name = "competence_id")
+    private Competence competence;
 
 
     // Getters & Setters
@@ -36,12 +34,12 @@ public class ValidationSousCompetence {
         this.statut = statut;
     }
 
-    public SousCompetence getSousCompetence() {
-        return sousCompetence;
+    public Competence getCompetence() {
+        return competence;
     }
 
-    public void setSousCompetence(SousCompetence sousCompetence) {
-        this.sousCompetence = sousCompetence;
+    public void setCompetence(Competence competence) {
+        this.competence = competence;
     }
 
 

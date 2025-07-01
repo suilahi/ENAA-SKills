@@ -3,13 +3,12 @@ package org.enaa_skills.Model;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
 import java.util.List;
-
 @Entity
+@Table(name = "competences")
 public class Competence {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nom;
@@ -17,6 +16,11 @@ public class Competence {
 
     @OneToMany(mappedBy = "competence", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SousCompetence> sousCompetences;
+
+    @OneToMany(mappedBy = "competence", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ValidationCompetence> validations;
+
+    // Getters & Setters
 
     public Long getId() {
         return id;
@@ -50,5 +54,11 @@ public class Competence {
         this.sousCompetences = sousCompetences;
     }
 
+    public List<ValidationCompetence> getValidations() {
+        return validations;
+    }
 
+    public void setValidations(List<ValidationCompetence> validations) {
+        this.validations = validations;
+    }
 }

@@ -1,21 +1,26 @@
 package org.enaa_skills.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
+@Table(name = "sous_competences")
 public class SousCompetence {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nom;
 
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "competence_id")
     private Competence competence;
+
+    @OneToMany(mappedBy = "sousCompetence", cascade = CascadeType.ALL)
+    private List<ValidationSousCompetence> validations;
+
+    // Getters & Setters
 
     public Long getId() {
         return id;
@@ -41,4 +46,11 @@ public class SousCompetence {
         this.competence = competence;
     }
 
+    public List<ValidationSousCompetence> getValidations() {
+        return validations;
+    }
+
+    public void setValidations(List<ValidationSousCompetence> validations) {
+        this.validations = validations;
+    }
 }
