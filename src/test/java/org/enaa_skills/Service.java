@@ -2,41 +2,28 @@ package org.enaa_skills;
 
 import org.enaa_skills.Model.Competence;
 import org.enaa_skills.Repository.CompetenceRepository;
-import org.enaa_skills.Services.CompetenceService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@DataJpaTest
 public class Service {
-    @Mock
+
+    @Autowired
     private CompetenceRepository competenceRepository;
 
-    @InjectMocks
-    private CompetenceService competenceService;
-
-    private Competence competence;
-
-    @BeforeEach
-    void setUp() {
-        competence = new Competence();
-        competence.setId(1L);
-    }
-
-
     @Test
-    void createCompetence() {
-        when(competenceRepository.save(any(Competence.class))).thenReturn(competence);
-        Competence createdcompetence = competenceService.save(new Competence());
-        assertThat(createdcompetence).isNotNull();
-        verify(competenceRepository).save(any(Competence.class));
+    void CreateCompetence() {
+        Competence competence = new Competence();
+        competence.setNom("Communication");
+        competence.setDescription("Capacité à transmettre efficacement des informations.");
+
+        Competence saved = competenceRepository.save(competence);
+
+        assertThat(saved.getId()).isNotNull();
     }
 }

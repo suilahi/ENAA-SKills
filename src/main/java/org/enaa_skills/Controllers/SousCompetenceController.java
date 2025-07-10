@@ -63,4 +63,10 @@ public class SousCompetenceController {
         List<SousCompetence> list = sousCompetenceService.getByCompetenceId(competenceId);
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping("valide")
+    public ResponseEntity<List<SousCompetence>> valide() {
+        List<SousCompetence> list = sousCompetenceService.getAll();
+        return ResponseEntity.ok(list);
+    }
 }

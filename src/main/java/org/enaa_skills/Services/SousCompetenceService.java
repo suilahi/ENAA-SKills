@@ -73,4 +73,8 @@ public class SousCompetenceService {
         sousCompetenceRepository.delete(existing);
         competenceService.updateStatutIfNeeded(existing.getCompetence().getId());
     }
+
+    public Long count() {
+        return sousCompetenceRepository.count();
+    }
 }
